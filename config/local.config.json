@@ -1,0 +1,49 @@
+{
+    "mode": "local",
+    "server": {
+        "api": { "host": "127.0.0.1", "port": 3000 },
+        "auth": { "host": "127.0.0.1", "port": 4000 },
+        "event": { "host": "127.0.0.1", "port": 5000 }
+    },
+    "database": {
+        "mongo": {
+            "global": {
+                "db_name": "nexon_local_global",
+                "host": "",
+                "port": 1234,
+                "user_name": "admin",
+                "password": "password",
+                "min_pool_size": 0,
+                "max_pool_size": 1,
+                "use_tls": false
+            },
+            "user": [
+                {
+                    "db_name": "nexon_local_user",
+                    "host": "",
+                    "port": 1234,
+                    "user_name": "admin",
+                    "password": "password",
+                    "min_pool_size": 0,
+                    "max_pool_size": 1,
+                    "use_tls": false
+                }
+            ]
+        },
+        "redis": {
+            "global": {
+                "ip": "localhost",
+                "port": 6379,
+                "user": "",
+                "password": ""
+            }
+        }
+    },
+    "setting": {
+        "auth": {
+            "jwt_secret": "!nexon-reward-system!20021218",
+            "expires_in": "3h",
+            "issuer": "www.nexon.com"
+        }
+    }
+}
