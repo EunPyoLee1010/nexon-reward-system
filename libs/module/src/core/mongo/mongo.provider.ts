@@ -13,10 +13,11 @@ export class NexonMongo {
         const { global, user } = this.config.getConfig().getMongoConfig();
 
         // 글로벌 커넥션 설정
-        const host = `mongodb://${global.ip}:${global.port}/${global.db_name}`;
+        const host = `mongodb://${global.host}:${global.port}/${global.db_name}`;
         const gConn = mongoose.createConnection(host, {
-            user: global.user,
-            pass: global.passwd,
+            user: global.user_name,
+            pass: global.password,
+            authSource: 'admin',
             maxPoolSize: global.max_pool_size,
             minPoolSize: global.min_pool_size,
             tls: global.use_tls,
@@ -28,10 +29,11 @@ export class NexonMongo {
 
         // 유저 커넥션 설정
         for (const u of user) {
-            const host = `mongodb://${u.ip}:${u.port}/${u.db_name}`;
+            const host = `mongodb://${u.host}:${u.port}/${u.db_name}`;
             const uConn = mongoose.createConnection(host, {
-                user: u.user,
-                pass: u.passwd,
+                user: u.user_name,
+                pass: u.password,
+                authSource: 'admin',
                 maxPoolSize: u.max_pool_size,
                 minPoolSize: u.min_pool_size,
                 tls: u.use_tls,
@@ -41,6 +43,17 @@ export class NexonMongo {
 
             this.connMap[`${this.userShardConnKey}_${u.shard}`] = uConn;
         }
+    }
+
+    async getUserConnectionByUserid(userid: number) {
+        const mod = userid % 10;
+        const conn = this.connMap[`${this.userShardConnKey}_${mod}`];
+        return conn;
+    }
+
+    async getGlobalConnecction() {
+        const conn = this.connMap[this.globalConnKey];
+        return conn;
     }
 }
 

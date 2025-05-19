@@ -1,22 +1,20 @@
 import { SIGNIN_MSG_PATTERN, SIGNUP_MSG_PATTERN } from '@module/module/define/command.constant';
 import { UserSession } from '@module/module/type/session.type';
-import { Body, Controller, Get, Inject, Logger, Post, Session, UseGuards } from '@nestjs/common';
+import { Body, Controller, Inject, Logger, Post, Session } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
-import { JwtAuthGuard } from '../../common/guard/auth.guard';
-import { UserRegisterReqDto, UserRegisterResDto } from './auth.dto';
+import { UserLoginReqDto, UserRegisterReqDto, UserRegisterResDto } from '../../../../../libs/module/src/type/auth.dto';
 
 @Controller('auth')
 export class AuthController {
     constructor(@Inject('AUTH_SERVICE') private readonly authClient: ClientProxy) {}
 
-    @UseGuards(JwtAuthGuard)
-    @Get('sign-in')
-    async signIn(@Session() session: UserSession, @Body() { email, passwd }: UserRegisterReqDto) {
+    @Post('sign-in')
+    async signIn(@Session() session: UserSession, @Body() { userid, passwd }: UserLoginReqDto) {
         const res = session.getRes();
         const content = res.getContent<UserRegisterResDto>();
 
-        const response$ = this.authClient.send(SIGNIN_MSG_PATTERN, { email, passwd });
+        const response$ = this.authClient.send(SIGNIN_MSG_PATTERN, { userid, passwd });
         const tokenRes = await firstValueFrom<{ result: boolean; message?: string; token?: string }>(response$).catch((e) => {
             Logger.error(e);
             return { result: false, message: e, token: undefined };
@@ -35,11 +33,11 @@ export class AuthController {
     }
 
     @Post('sign-up')
-    async signUp(@Session() session: UserSession, @Body() { email, name, passwd, role }: UserRegisterReqDto) {
+    async signUp(@Session() session: UserSession, @Body() { userid, name, passwd, role }: UserRegisterReqDto) {
         const res = session.getRes();
         const content = res.getContent<UserRegisterResDto>();
 
-        const response$ = this.authClient.send(SIGNUP_MSG_PATTERN, { email, name, passwd, role });
+        const response$ = this.authClient.send(SIGNUP_MSG_PATTERN, { userid, name, passwd, role });
         const tokenRes = await firstValueFrom<{ result: boolean; message?: string; token?: string }>(response$).catch((e) => {
             Logger.error(e);
             return { result: false, message: e, token: undefined };

@@ -1,0 +1,15 @@
+# apps/api/Dockerfile (auth, event도 동일한 방식)
+FROM node:18-alpine
+
+WORKDIR /usr/src/app
+
+COPY ../../package*.json ./
+COPY ../../tsconfig.base.json ./
+COPY ../../nest-cli.json ./
+COPY ../../libs ./libs
+COPY ./ .
+
+RUN npm install --force
+RUN npm run build event
+
+CMD ["sh", "-c", "cross-env mode=prod service=event node dist/apps/event/main.js"]

@@ -1,6 +1,6 @@
-import { REQUEST_REWARD_MSG_PATTERN, VIEW_REQUEST_REWARD_LOG_MSG_PATTERN } from '@module/module/define/command.constant';
+import { CHECK_ROLE, REQUEST_REWARD_MSG_PATTERN, VIEW_REQUEST_REWARD_LOG_MSG_PATTERN } from '@module/module/define/command.constant';
 import { UserSession } from '@module/module/type/session.type';
-import { Body, Controller, Get, Inject, Post, Query, Session, UseGuards } from '@nestjs/common';
+import { Body, Controller, Get, Inject, Post, Query, Session, SetMetadata, UseGuards } from '@nestjs/common';
 import { ClientProxy } from '@nestjs/microservices';
 import { firstValueFrom } from 'rxjs';
 import { JwtAuthGuard } from '../../common/guard/auth.guard';
@@ -12,6 +12,7 @@ export class RewardController {
     constructor(@Inject('EVENT_SERVICE') private readonly authClient: ClientProxy) {}
 
     @Post('request')
+    @SetMetadata(CHECK_ROLE, parseInt('0001', 2))
     async requestReward(@Session() session: UserSession, @Body() { eventid }: any) {
         const res = session.getRes();
         const content = res.getContent<any>();
@@ -21,6 +22,7 @@ export class RewardController {
 
         if (requestRes) {
             content.result = true;
+            content.reward_list = requestRes.reward_list;
         } else {
             content.result = false;
             content.message = 'error';
@@ -30,6 +32,7 @@ export class RewardController {
     }
 
     @Get('request/log')
+    @SetMetadata(CHECK_ROLE, parseInt('0000', 2))
     async signUp(@Session() session: UserSession, @Query() { eventid, request_result }: any) {
         const res = session.getRes();
         const content = res.getContent<any>();
@@ -39,7 +42,7 @@ export class RewardController {
 
         if (logResult) {
             content.result = true;
-            content.log_list = [];
+            content.log_list = logResult.log_list;
         } else {
             content.result = false;
             content.message = 'error';

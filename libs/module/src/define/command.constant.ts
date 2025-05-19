@@ -1,3 +1,5 @@
+export const CHECK_ROLE = 'CHECK_ROLE';
+
 export const SIGNIN_MSG_PATTERN = {
     type: 'auth',
     cmd: 'sign-in',
@@ -6,6 +8,11 @@ export const SIGNIN_MSG_PATTERN = {
 export const SIGNUP_MSG_PATTERN = {
     type: 'auth',
     cmd: 'sign-up',
+} as const;
+
+export const CHECK_AUTH_MSG_PATTERN = {
+    type: 'auth',
+    cmd: 'check',
 } as const;
 
 export const VIEW_EVENT_MSG_PATTERN = {

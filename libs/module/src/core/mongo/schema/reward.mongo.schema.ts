@@ -17,7 +17,8 @@ export class DBRewardNexon {
 
     _sync_to_db?: boolean;
 
-    create(type: number, name: string, grade: number, amount: number) {
+    create(eventId: number, type: number, name: string, grade: number, amount: number) {
+        this.eventId = eventId;
         this.type = type;
         this.name = name;
         this.grade = grade;

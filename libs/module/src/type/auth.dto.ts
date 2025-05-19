@@ -1,18 +1,19 @@
 import { NexonAbstractReqBean, NexonAbstractResBean } from '@module/module/define/dto.constant';
 import { Transform } from 'class-transformer';
-import { IsEmail, IsString, Matches, MinLength } from 'class-validator';
+import { IsEnum, IsNumber, IsOptional, IsString, Matches, MinLength } from 'class-validator';
+import { ENUM_USER_ROLE_STRING } from '../core/mongo/schema/user.mongo.schema';
 
 export class UserLoginReqDto extends NexonAbstractReqBean {
-    @IsEmail()
-    email: string;
+    @IsNumber()
+    userid: number;
 
     @IsString()
     passwd: string;
 }
 
 export class UserRegisterReqDto extends NexonAbstractReqBean {
-    @IsEmail()
-    email: string;
+    @IsNumber()
+    userid: number;
 
     @IsString()
     name: string;
@@ -23,8 +24,9 @@ export class UserRegisterReqDto extends NexonAbstractReqBean {
     @Transform(({ value }) => value.trim())
     passwd: string;
 
-    @IsString()
-    role?: string;
+    @IsEnum(ENUM_USER_ROLE_STRING)
+    @IsOptional()
+    role?: ENUM_USER_ROLE_STRING;
 }
 
 export class UserRegisterResDto extends NexonAbstractResBean {

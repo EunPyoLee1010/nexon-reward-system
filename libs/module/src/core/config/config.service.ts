@@ -68,11 +68,11 @@ export class NexonConfig {
     };
     database: Record<string, { global: TConfigDatabaseConnection; user: TConfigDatabaseConnection[] }> = {
         mongo: {
-            global: { ip: '', port: 27017, user: '', passwd: '', db_name: '' },
+            global: { host: '', port: 27017, user_name: '', password: '', db_name: '' },
             user: [],
         },
         redis: {
-            global: { ip: '', port: 6379, user: '', passwd: '', db_name: '' },
+            global: { host: '', port: 6379, user_name: '', password: '', db_name: '' },
             user: [],
         },
     };

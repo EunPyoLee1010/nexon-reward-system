@@ -24,10 +24,22 @@ export class DBEventNexon {
 
     _sync_to_db?: boolean;
 
-    create(eventid: number, event_type: string, event_goal_type: string, event_goal_num: number, now: Date, started_at: Date, ended_at: Date) {
+    create(
+        eventid: number,
+        title: string,
+        description: string,
+        event_type: string,
+        event_goal_type: string,
+        event_goal_num: number,
+        now: Date,
+        started_at: Date,
+        ended_at: Date,
+    ) {
         this.eventid = eventid;
         this.is_active = now >= started_at && now <= ended_at;
 
+        this.title = title;
+        this.description = description;
         this.event_type = event_type;
         this.event_goal_type = event_goal_type;
         this.event_goal_num = event_goal_num;

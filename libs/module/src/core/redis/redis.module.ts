@@ -12,7 +12,7 @@ import { CacheService } from './redis.service';
                 imports: [NexonConfigModule],
                 inject: [NexonConfigService],
                 useFactory: (config: NexonConfigService) => {
-                    const { ip: host, port, user: username, passwd: password } = config.getConfig().getRedisConfig().global;
+                    const { host, port, user_name: username, password } = config.getConfig().getRedisConfig().global;
                     return { config: { host, port, username, password }, readyLog: true, errorLog: true };
                 },
             },

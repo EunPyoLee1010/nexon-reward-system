@@ -7,6 +7,13 @@ export enum ENUM_USER_ROLE {
     ADMIN = parseInt('1111', 2),
 }
 
+export enum ENUM_USER_ROLE_STRING {
+    USER = 'USER',
+    OPERATOR = 'OPERATOR',
+    AUDITOR = 'AUDITOR',
+    ADMIN = 'ADMIN',
+}
+
 /**
  * 유저 정보 Schema
  */
@@ -17,7 +24,6 @@ export enum ENUM_USER_ROLE {
 })
 export class DBUserNexon {
     @Prop({ required: true }) userid: number;
-    @Prop({ required: true }) email: string;
     @Prop({ required: true }) name: string;
 
     @Prop({ required: true }) passwd_enc: string;
@@ -40,9 +46,8 @@ export class DBUserNexon {
 
     _sync_to_db?: boolean;
 
-    create(userid: number, email: string, name: string, passwd_enc: string, passwd_salt: string, role: ENUM_USER_ROLE, now: Date) {
+    create(userid: number, name: string, passwd_enc: string, passwd_salt: string, role: ENUM_USER_ROLE, now: Date) {
         this.userid = userid;
-        this.email = email;
         this.name = name;
 
         this.passwd_enc = passwd_enc;

@@ -23,7 +23,7 @@ export class SessionInterceptor implements NestInterceptor {
 
     async handle(context: ExecutionContext, next: CallHandler<any>) {
         const req = context.switchToHttp().getRequest<Request>();
-        const userId = req.session.userId;
+        const userId = req.session.userInfo.userid;
 
         const lockKey = this.cache.getUserLockKey(userId);
         const userLockResult = await this.lock(lockKey);

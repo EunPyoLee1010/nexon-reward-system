@@ -1,15 +1,15 @@
 {
-    "mode": "local",
+    "mode": "prod",
     "server": {
-        "api": { "host": "127.0.0.1", "port": 3000 },
-        "auth": { "host": "127.0.0.1", "port": 4000 },
-        "event": { "host": "127.0.0.1", "port": 5000 }
+        "api": { "host": "192.100.100.2", "port": 3000 },
+        "auth": { "host": "192.100.100.3", "port": 4000 },
+        "event": { "host": "192.100.100.4", "port": 5000 }
     },
     "database": {
         "mongo": {
             "global": {
                 "db_name": "nexon_local_global",
-                "host": "localhost",
+                "host": "192.100.100.10",
                 "port": 27017,
                 "user_name": "admin",
                 "password": "password",
@@ -21,7 +21,7 @@
                 {
                     "db_name": "nexon_local_user0",
                     "shard": 0,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -32,7 +32,7 @@
                 {
                     "db_name": "nexon_local_user1",
                     "shard": 1,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -43,7 +43,7 @@
                 {
                     "db_name": "nexon_local_user2",
                     "shard": 2,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -54,7 +54,7 @@
                 {
                     "db_name": "nexon_local_user3",
                     "shard": 3,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -65,7 +65,7 @@
                 {
                     "db_name": "nexon_local_user4",
                     "shard": 4,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -76,7 +76,7 @@
                 {
                     "db_name": "nexon_local_user5",
                     "shard": 5,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -87,7 +87,7 @@
                 {
                     "db_name": "nexon_local_user6",
                     "shard": 6,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -98,7 +98,7 @@
                 {
                     "db_name": "nexon_local_user7",
                     "shard": 7,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -109,7 +109,7 @@
                 {
                     "db_name": "nexon_local_user8",
                     "shard": 8,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -120,7 +120,7 @@
                 {
                     "db_name": "nexon_local_user9",
                     "shard": 9,
-                    "host": "localhost",
+                    "host": "192.100.100.10",
                     "port": 27017,
                     "user_name": "admin",
                     "password": "password",
@@ -132,8 +132,8 @@
         },
         "redis": {
             "global": {
-                "ip": "localhost",
-                "port": 6666,
+                "ip": "192.100.100.11",
+                "port": 6379,
                 "user": "",
                 "password": ""
             }
